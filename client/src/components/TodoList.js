@@ -2,30 +2,37 @@ import { useEffect, useContext } from 'react'
 import axios from 'axios'
 import Todo from './Todo';
 import { TodosContext } from '../context/TodosContext'
+import List from '@material-ui/core/List';
 
 const TodoList = () => {
-    const [todos, setTodos] = useContext(TodosContext)
+    const [todos, setTodos, fetchTodos] = useContext(TodosContext)
+    
 
     useEffect(() => {
-        const fetchTodos = () => {
-            axios.get('http://localhost:8080/api/todos')
-                .then(function (response) {
-                    console.log(response.data)
-                    setTodos(response.data);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        };    
         fetchTodos();
-      }, [setTodos]);
+      }, [fetchTodos, setTodos]);
+
+      const handleEdit = (id, editValue) => {
+        axios.put(`http://localhost:8080/api/todos/${id}`, 
+        {
+            description: editValue
+        })
+          .then(function (response) {
+            
+            console.log(response);
+            fetchTodos();
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
 
     return ( 
-        <div>
-            {todos.map((todo, i) => {
-                return<Todo key={i} todo={todo}/>
+        <List style={{padding:'10px'}}>
+            {todos.map((todo) => {
+                return<Todo key={todo._id} todo={todo} handleEdit={handleEdit} />
             })}
-        </div>
+        </List>
      );
 }
  

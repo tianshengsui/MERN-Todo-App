@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(cors())
 
 mongoose.connect(
-    'mongodb+srv://tianshengsui:19980210Sui123@cluster0.icrrd.mongodb.net/ReactTodo?retryWrites=true&w=majority',
+    DB_URL,
  {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
  ).then(() => {
      console.log("Database Connected!")
@@ -47,6 +47,20 @@ app.post("/api/todos", (req, res) => {
         }
     });
 });
+
+app.put("/api/todos/:id", (req, res) => {
+    Todo.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      (err, updatedTodo) => {
+        if (err) {
+          console.log(err)
+        } else {
+          res.json(updatedTodo)
+        }
+      }
+    );
+  });
 
 app.delete("/api/todos/:id", (req, res) => {
     //destory

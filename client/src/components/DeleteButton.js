@@ -11,7 +11,7 @@ const DeleteButton = ({id}) => {
     const deleteTodo = (e) =>{
         e.preventDefault();
 
-        axios.delete(`http://localhost:8080/api/todos/${id}`)
+        axios.delete(`/api/todos/${id}`)
         .then(function (response) {
             const newList = todos.filter(function(value, index, arr){ 
                 return value._id !== id

@@ -2,15 +2,18 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import { Todo } from './models/todo.js';
+import dotenv  from "dotenv"
+
+dotenv.config()
 
 const app = express()
-const port = 8080
+const port = process.env.PORT || 5000;
 
 app.use(express.json())
 app.use(cors())
 
 mongoose.connect(
-    DB_URL,
+  process.env.MONGODB_CONNECTION_STRING,
  {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
  ).then(() => {
      console.log("Database Connected!")
@@ -74,5 +77,5 @@ app.delete("/api/todos/:id", (req, res) => {
   });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`App is listening at http://localhost:${port}`)
 })

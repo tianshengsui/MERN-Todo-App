@@ -13,7 +13,7 @@ const TodoList = () => {
       }, [fetchTodos, setTodos]);
 
       const handleEdit = (id, editValue) => {
-        axios.put(`http://localhost:8080/api/todos/${id}`, 
+        axios.put(`/api/todos/${id}`, 
         {
             description: editValue
         })

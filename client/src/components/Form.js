@@ -19,7 +19,7 @@ const Form = () => {
             completed: false
         };
 
-        axios.post('http://localhost:8080/api/todos', newTodo)
+        axios.post('/api/todos', newTodo)
           .then(function (response) {
             setTodos(previousTodos => [...previousTodos, response.data])
             setDescription('')

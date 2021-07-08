@@ -26,7 +26,7 @@ const Todo = ({ todo, handleEdit}) => {
         setOnEdit(false)
     }
     const updateCompleted = () =>{
-        axios.put(`http://localhost:8080/api/todos/${todo._id}`, 
+        axios.put(`/api/todos/${todo._id}`, 
         {
             completed: !completed
         })
